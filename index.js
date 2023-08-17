@@ -1,5 +1,5 @@
 /**
- * Основной модуль приложения - точка входа. 
+ * Основной модуль приложения - точка входа.
  */
 
 const express = require("express");
@@ -16,7 +16,10 @@ api.getAccessToken().then(() => {
 	app.get("/ping", (req, res) => res.send("pong " + Date.now()));
 
 	app.post("/hook", (req, res) => {
-		console.log(req.data);
+
+		const contact = req.body
+		console.log(contact)
+
 		res.send("OK");
 	});
 

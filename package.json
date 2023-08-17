@@ -4,7 +4,7 @@
   "description": "code templates for development",
   "main": "index.js",
   "scripts": {
-    "start": "node index.js", 
+    "start": "node index.js",
     "test": "eslint ./"
   },
   "author": "",
@@ -17,6 +17,7 @@
     "querystring": "^0.2.0"
   },
   "devDependencies": {
-    "eslint": "^8.14.0"
+    "eslint": "^8.14.0",
+    "nodemon": "^3.0.1"
   }
 }
