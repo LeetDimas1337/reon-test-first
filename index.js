@@ -17,7 +17,8 @@ const calculateAge = (birthUnix) => {
     const birthDate = new Date(birthUnix * 1000)
     const currentDate = new Date()
     const age = currentDate.getFullYear() - birthDate.getFullYear()
-    return currentDate.getMonth() < birthDate.getMonth() || currentDate.getDate() <= birthDate.getDate() && currentDate.getMonth() === birthDate.getMonth()
+    return currentDate.getMonth() < birthDate.getMonth() ||
+		currentDate.getDate() <= birthDate.getDate() && currentDate.getMonth() === birthDate.getMonth()
         ? age - 1
         : age
 }
@@ -52,7 +53,7 @@ api.getAccessToken().then(() => {
                         ]
                     }
                 ])
-                    .then(data => res.status(200).json({message: "invalid contact data"}))
+                    .then(data => res.status(200).json({message: "all right"}))
                     .catch(err => res.status(400).json({message: err.message}))
             }
 
