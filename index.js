@@ -17,7 +17,6 @@ const calculateAge = (birthUnix) => {
     const birthDate = new Date(birthUnix * 1000)
     const currentDate = new Date()
     const age = currentDate.getFullYear() - birthDate.getFullYear()
-    console.log(age)
     return currentDate.getMonth() < birthDate.getMonth() || currentDate.getDate() <= birthDate.getDate() && currentDate.getMonth() === birthDate.getMonth()
         ? age - 1
         : age
