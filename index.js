@@ -13,7 +13,14 @@ const app = express();
 app.use(express.json());
 app.use(express.urlencoded({extended: true}));
 
-const calculateAge = (birthDate) => Math.floor((Date.now() - birthDate * 1000) / (3600 * 1000 * 24 * 365.25))
+const calculateAge = (birthUnix) => {
+    const birthDate = new Date(birthUnix * 1000)
+    const currentDate = new Date()
+    const age = currentDate.getFullYear() - birthDate.getFullYear()
+    return currentDate.getMonth() < birthDate.getMonth() || currentDate.getMonth() === birthDate.getMonth() && currentDate.getDate() < birthDate.getDate()
+        ? age - 1
+        : age
+}
 
 const BIRTH_ID = 881471
 const AGE_ID = 881521
@@ -23,11 +30,11 @@ api.getAccessToken().then(() => {
 
     app.post("/hook", (req, res) => {
 
-        const contact = req.body?.contacts.update || req.body?.contacts.add || null
-
-        if (contact[0].custom_fields) {
-            const birth = getFieldValue(contact[0].custom_fields, BIRTH_ID)
-            const previousAge = getFieldValue(contact[0].custom_fields, AGE_ID) || {value: -1}
+        const contact = req.body.contacts?.update || req.body.contacts?.add
+        const customFields = contact[0].custom_fields
+        if (customFields) {
+            const birth = getFieldValue(customFields, BIRTH_ID)
+            const previousAge = getFieldValue(customFields, AGE_ID) || {value: -1}
             const newAge = calculateAge(birth) >= 0 ? calculateAge(birth) : 0
             if (+previousAge.value === newAge) {
                 res.send("OK")
