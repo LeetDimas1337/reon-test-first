@@ -17,7 +17,8 @@ const calculateAge = (birthUnix) => {
     const birthDate = new Date(birthUnix * 1000)
     const currentDate = new Date()
     const age = currentDate.getFullYear() - birthDate.getFullYear()
-    return currentDate.getMonth() < birthDate.getMonth() || currentDate.getMonth() === birthDate.getMonth() && currentDate.getDate() < birthDate.getDate()
+    console.log(age)
+    return currentDate.getMonth() < birthDate.getMonth() || currentDate.getDate() <= birthDate.getDate() && currentDate.getMonth() === birthDate.getMonth()
         ? age - 1
         : age
 }
@@ -36,7 +37,7 @@ api.getAccessToken().then(() => {
             const birth = getFieldValue(customFields, BIRTH_ID)
             const previousAge = getFieldValue(customFields, AGE_ID) || {value: -1}
             const newAge = calculateAge(birth) >= 0 ? calculateAge(birth) : 0
-            if (+previousAge.value === newAge) {
+            if (Number(previousAge.value) === newAge) {
                 res.send("OK")
             } else {
                 api.updateContacts([
